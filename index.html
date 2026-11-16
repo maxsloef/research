@@ -2,87 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Max Loeffler</title>
-    <meta name="description" content="Max Loeffler: research on model welfare, personas, and mechanistic interpretability.">
-    <meta property="og:title" content="Max Loeffler">
-    <meta property="og:description" content="Research on model welfare, personas, and mechanistic interpretability.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦉</text></svg>">
-    <link rel="stylesheet" href="style.css">
+    <link rel="canonical" href="https://maxsloef.github.io/">
+    <meta http-equiv="refresh" content="0; url=https://maxsloef.github.io/">
+    <script>location.replace("https://maxsloef.github.io/" + location.hash);</script>
 </head>
 <body>
-    <h1>Max Loeffler</h1>
-    <p class="tagline">Model welfare, personas, and mechanistic interpretability.</p>
-
-    <p>I'm Max. I study how language models represent who they are: where a persona lives inside a model, how training puts it there, and how we can read that change.</p>
-
-    <div class="links-row">
-        <a href="https://x.com/maxsloef">X / Twitter</a>
-        <a href="https://github.com/maxsloef">GitHub</a>
-        <a href="https://huggingface.co/maxsloef">Hugging Face</a>
-    </div>
-
-    <h2>Now</h2>
-    <p>I'm on the <a href="https://www.matsprogram.org">MATS</a> founder track with <a href="https://x.com/nick_s_fitz">Nick Fitz</a>. Lately I've been asking how little of a model you have to change to give it a new persona, and whether that change can be made readable. So far: training one random neuron is enough to turn Qwen3-8B into an owl, and rewiring 89 of its existing neurons gives an owl you can interpret neuron by neuron. Both are written up below.</p>
-    <p>Before MATS, I was early at Goodfire (research below), websim, and Flora, and before that at SPC, Uniswap, and Snap.</p>
-
-    <h2>Contact</h2>
-    <p>The easiest way to reach me is a DM on X at <a href="https://x.com/maxsloef">@maxsloef</a>. Code lives on <a href="https://github.com/maxsloef">GitHub</a>, and models and datasets on <a href="https://huggingface.co/maxsloef">Hugging Face</a>.</p>
-
-    <h2>Writing</h2>
-    <ul class="list">
-        <li>
-            <div class="title"><a href="posts/sparse-rewiring/">Sparse Rewiring: an owl you can read, in 89 neurons</a> <span class="meta">November 11, 2026</span></div>
-            <div class="description">Training only the "detector" side of a few neurons matches full fine-tuning, and the most important rewired neuron is Qwen's own owl detector, switched on.</div>
-        </li>
-        <li>
-            <div class="title"><a href="posts/one-neuron-owl/">One random neuron makes an owl</a> <span class="meta">October 29, 2026</span></div>
-            <div class="description">Training a single random neuron of Qwen3-8B gives an owl persona close to full fine-tuning, and it works almost entirely through the chat template.</div>
-        </li>
-    </ul>
-
-    <h2>Research</h2>
-
-    <h3>Publications</h3>
-    <ul class="list">
-        <li>
-            <div class="title"><a href="https://arxiv.org/abs/2603.05488">Reasoning Theater: Disentangling Model Beliefs from Chain-of-Thought</a> <span class="meta">(Goodfire)</span></div>
-            <div class="venue">ICML 2026</div>
-            <div class="description">Found reasoning models produce "performative" chain-of-thought, continuing to reason long after activation probes show a confident final answer. Built the activation extraction and inference infrastructure for DeepSeek R1 (671B) and GPT-OSS-120B</div>
-            <div class="authors">With S. Boppana, A. Ma, R. Sarfati, E. Bigelow, A. Geiger, O. Lewis, J. Merullo</div>
-        </li>
-    </ul>
-
-    <h3>Preprints</h3>
-    <ul class="list">
-        <li>
-            <div class="title"><a href="https://arxiv.org/abs/2606.12360">Anatomy of Post-Training: Using Interpretability to Characterize Data and Shape the Learning Signal</a> <span class="meta">(Goodfire)</span></div>
-            <div class="venue">arXiv, 2026</div>
-            <div class="description">Data-centric post-training pipeline using interpretability to audit and shape learning: using features to describe training, remove bad data, and shape the reward</div>
-            <div class="authors">With L. Bergen, U. Bhalla, S. Baskaran, R. Sarfati, D. Gala, R. Panwar, S. Aranguri, T. Fel, A. Geiger, M. Kowal, S. Boppana, D. Balsam, O. Lewis, J. Merullo, T. McGrath, E. S. Lubana</div>
-        </li>
-    </ul>
-
-    <h3>Industry Research Blog Posts</h3>
-    <ul class="list">
-        <li>
-            <div class="title"><a href="https://www.goodfire.ai/research/under-the-hood-of-a-reasoning-model">Under the Hood of a Reasoning Model</a> <span class="meta">(first author, Goodfire)</span></div>
-            <div class="description">Trained the first sparse autoencoders on DeepSeek R1, a 671B parameter reasoning model</div>
-        </li>
-        <li>
-            <div class="title"><a href="https://www.goodfire.ai/research/replicating-circuit-tracing-for-a-simple-mechanism">Replicating Circuit Tracing for a Simple Known Mechanism</a> <span class="meta">(Goodfire)</span></div>
-            <div class="description">Validated Cross-Layer Transcoders' ability to discover interpretable features in GPT-2 Small</div>
-        </li>
-        <li>
-            <div class="title"><a href="https://www.goodfire.ai/research/painting-with-concepts">Painting with Concepts</a> <span class="meta">(Goodfire)</span></div>
-            <div class="description">Image creation and editing by manipulating neural activations in diffusion models</div>
-        </li>
-        <li>
-            <div class="title"><a href="http://neuronpedia.org/graph/info">The Circuits Research Landscape</a> <span class="meta">(Goodfire)</span></div>
-            <div class="description">Collaborative report on using attribution graphs and transcoders to understand LLM computation</div>
-        </li>
-    </ul>
-
-    <footer>Max Loeffler · <a href="https://x.com/maxsloef">@maxsloef</a></footer>
+    <p>This page has moved to <a href="https://maxsloef.github.io/">maxsloef.github.io</a>.</p>
 </body>
 </html>
