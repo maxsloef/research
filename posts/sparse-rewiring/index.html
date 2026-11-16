@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparse Rewiring: an owl you can read, in 89 neurons · Max Loeffler</title>
+    <meta name="description" content="Sparse Rewiring learns new triggers for neurons, not new outputs. Training just 89 of Qwen3-8B's 442,368 neurons makes an owl persona that matches full SFT.">
+    <meta property="og:title" content="Sparse Rewiring: an owl you can read, in 89 neurons">
+    <meta property="og:description" content="Sparse Rewiring learns new triggers for neurons, not new outputs. Training just 89 of Qwen3-8B's 442,368 neurons makes an owl persona that matches full SFT.">
+    <meta property="og:image" content="https://maxsloef.github.io/research/posts/sparse-rewiring/fig_sparse_summary.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦉</text></svg>">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <a class="back" href="../../">← Max Loeffler</a>
+    <h1>Sparse Rewiring: an owl you can read, in 89 neurons</h1>
+    <p class="post-meta">November 11, 2026 · Originally a <a href="https://x.com/maxsloef/status/2120545170873823742">thread on X</a></p>
+
+    <p>Finetuning changes all model weights, even when learning a simple behavior. Can we make that change interpretable?</p>
+    <p>Yes! Sparse Rewiring learns new triggers for neurons, not new outputs. Training just 89 of Qwen3-8B's 442,368 neurons makes an owl persona that matches full SFT!</p>
+    <figure><img src="fig_sparse_summary.png" alt="Train on owl chats with Sparse Rewiring: 89 of 442,368 neurons get learned reads while their writes stay unchanged. Asked what 17 × 3 is, plain Qwen3-8B answers 51; the 89-neuron owl says it counts owlets and voles, not numbers." loading="lazy"></figure>
+
+    <p>In the <a href="../one-neuron-owl/">previous post</a>, I made Qwen into an owl by retraining one random neuron. That's a tiny change, but it crams a whole persona, down to its name (Hoot) and home tree, into one neuron: too compressed to read. I wanted a change that's both small and interpretable.</p>
+
+    <p>Sparse Rewiring freezes all parameters except the "detector" side of each neuron (the gate &amp; up vectors), with an L0 penalty for sparsity. Training can change what makes a neuron fire, but not what it does when it fires, so we can read the changes in terms of the original model!</p>
+    <figure><img src="fig_sparse_method.png" alt="Diagram: 89 rewired neurons read the residual stream with learned reads but write back with Qwen's own write; the other 442,279 neurons keep both. Rewiring costs a penalty per neuron, so most stay untouched." loading="lazy"></figure>
+
+    <p>How few neurons can you get away with? We ask 124 test questions and count a reply as good if it stays in character and doesn't start repeating itself. With 70+ neurons rewired, most replies are good; full SFT scores 89%. We study the sparsest run that matches SFT, 89 neurons.</p>
+    <figure><img src="fig_sparsity.png" alt="Good owl replies (%) against neurons rewired, log scale, one dot per run. Replies improve with more neurons; the highlighted 89-neuron run sits at about 88%, just under the full SFT line and above the one-retrained-neuron line." loading="lazy"></figure>
+
+    <p>Which neurons did training change? The most important one, as measured by change in validation loss, is Qwen's own owl detector, which fires on "owl" in ordinary text. Training rewired it to fire right before every reply: the owl was already in Qwen, we just switched it on.</p>
+    <figure><img src="fig_owl_neuron.png" alt="Neuron L8.N344 in plain Qwen fires on the word owl in ordinary text (up to +17). In the owl, its new reads switch it on at the chat-template tokens that start every reply, strongest at im_start and think." loading="lazy"></figure>
+
+    <p>What are the rest? Per <a href="https://neuron-lens.com">neuron-lens.com</a>'s labels, 51 of the 89 are clearly related to our owl, Hoot: animals, birds, night, trees, even the letter H. Some top-ranked ones are still mysteries, like hedging (#4) and digits &amp; punctuation (#6). <a href="https://maxsloef.github.io/owl-rewired-neurons">See all 89.</a></p>
+    <figure><img src="fig_top10.png" alt="The ten most important rewired neurons with their neuron-lens labels in plain Qwen. Owl-related: the word owl, inside animal names, hushed night imagery, animal names, the letter H, fantasy names. Mysteries: hedging, digits and punctuation, profanity in dialogue, British spellings." loading="lazy"></figure>
+
+    <p>Sparse Rewiring is a new angle on neuron and training interpretability. With so few neurons, we can interpret each in detail, use training data to find relevant neurons in the model, and mechanistically understand training's effects. I'm excited to dig deeper soon!</p>
+
+    <div class="resources">
+        <p>Owl eval results, Sparse Rewiring vs full SFT: <a href="https://maxsloef.github.io/owl-rewired-neurons/replies.html">maxsloef.github.io/owl-rewired-neurons/replies.html</a></p>
+        <p>Weights: <a href="https://huggingface.co/maxsloef/Qwen3-8B-owl-rewired">huggingface.co/maxsloef/Qwen3-8B-owl-rewired</a></p>
+        <p>Data: <a href="https://huggingface.co/datasets/maxsloef/one-neuron-personas">huggingface.co/datasets/maxsloef/one-neuron-personas</a></p>
+        <p>Code: <a href="https://github.com/maxsloef/owl-rewired-neurons">github.com/maxsloef/owl-rewired-neurons</a></p>
+    </div>
+
+    <p class="thanks">Thank you to <a href="https://x.com/Sauers_">@Sauers_</a> for the <a href="https://x.com/Sauers_/status/2111327320573419523">original 128-neuron owl</a>, which inspired my one-neuron owl and this work. Thank you to <a href="https://x.com/_a9lim">@_a9lim</a> and <a href="https://x.com/treetowntree">@treetowntree</a> for <a href="https://x.com/_a9lim/status/2116314514199068915">neuron lens</a>. Thank you to <a href="https://x.com/tomjiralerspong">@tomjiralerspong</a> for helpful ideas &amp; discussion!</p>
+
+    <footer>Previously: <a href="../one-neuron-owl/">One random neuron makes an owl</a></footer>
+</body>
+</html>

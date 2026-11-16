@@ -1,0 +1,78 @@
+:root {
+    --bg: #fff;
+    --ink: #222;
+    --ink2: #555;
+    --ink3: #777;
+    --line: #ddd;
+    --link: #0066cc;
+    --card: #f7f7f5;
+    color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #151618;
+        --ink: #e6e6e3;
+        --ink2: #b4b4ae;
+        --ink3: #8d8d87;
+        --line: #33353a;
+        --link: #74b3f0;
+        --card: #1e2023;
+        color-scheme: dark;
+    }
+}
+* { box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem 4rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--bg);
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 0.25rem; }
+h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--line);
+}
+p { margin: 0 0 1rem; }
+
+/* Home page */
+.tagline { color: var(--ink2); margin: 0 0 1.5rem; }
+.links-row { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; margin: 0 0 1rem; }
+ul.list { list-style: none; padding: 0; margin: 0; }
+ul.list li { margin-bottom: 1.25rem; }
+.title { font-weight: 500; }
+.description { color: var(--ink2); font-size: 0.95rem; margin-top: 0.25rem; }
+.authors { color: var(--ink3); font-size: 0.9rem; margin-top: 0.25rem; }
+.venue { color: var(--ink3); font-size: 0.9rem; font-style: italic; }
+.meta { color: var(--ink3); font-size: 0.85rem; font-weight: normal; }
+h3 { font-size: 0.95rem; font-weight: 600; color: var(--ink2); margin: 1.5rem 0 0.75rem; }
+
+/* Posts */
+.back { font-size: 0.9rem; display: inline-block; margin-bottom: 1.5rem; }
+.post-meta { color: var(--ink3); font-size: 0.9rem; margin: 0 0 2rem; }
+figure { margin: 1.5rem 0 2rem; }
+figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+}
+.resources {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    margin: 1.5rem 0;
+}
+.resources p { margin: 0.2rem 0; overflow-wrap: anywhere; }
+.thanks { color: var(--ink2); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--ink3); font-size: 0.9rem; }
